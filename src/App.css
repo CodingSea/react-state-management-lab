@@ -1,13 +1,16 @@
-#root {
+#root 
+{
   margin: 16px;
 }
 
-ul {
+ul 
+{
   display: flex;
   flex-wrap: wrap;
 }
 
-li {
+li 
+{
   list-style: none;
   margin: 8px;
   padding: 8px;
