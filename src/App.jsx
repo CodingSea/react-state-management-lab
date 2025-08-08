@@ -5,7 +5,7 @@ const App = () =>
 {
 
   const [team, setTeam] = useState([]);
-  const money = 100;
+  const [money, setMoney] = useState(100);
   const [zombieFighters, setZombieFighters] = useState([
       {
         id: 1,
@@ -89,19 +89,56 @@ const App = () =>
       },
     ]
   );
+  const [totalStrength, setTotalStrength] = useState(0);
 
 
   function handleAddFighter(fighter)
   {
-    const copyZombieFighters = [...team, fighter];
-    setTeam(copyZombieFighters);
-    console.log(team);
+    if(money < fighter.fighter.price) { return console.log("Not enough money"); }
+    const copyTeam = [...team, fighter.fighter];
+    setTeam(copyTeam);
+
+    let copyZombieFighters = [...zombieFighters];
+    copyZombieFighters.splice(zombieFighters.indexOf(fighter.fighter), 1);
+    setZombieFighters(copyZombieFighters);
+
+    setMoney(money - fighter.fighter.price);
+    copyTeam.map((f) =>
+    {
+      setTotalStrength(totalStrength + f.strength);
+    })
+    displayTeam();
+  }
+
+  function displayTeam()
+  {
+    return team.length == 0 ? <p>Pick some team members!</p> : team.map((fighter) => 
+        {
+          return (
+            <li key={fighter.id}>
+              <img src={fighter.img} alt="zombie-fighter-image"></img>
+              <h3>{fighter.name}</h3>
+              <p>Price: {fighter.price}</p>
+              <p>Strength: {fighter.strength}</p>
+              <p>Agility: {fighter.agility}</p>
+            </li>
+          )
+        }
+      );
+
   }
 
   return (
     <>
       <h2>Money: {money}</h2>
+      <h2>Team Strength: {totalStrength}</h2>
+      <h2>Team Agility: {money}</h2>
+      <h2>Team</h2>
+      <ul>
+        { displayTeam() }
+      </ul>
 
+      <h2>Fighters</h2>
       <ul>
         {
           zombieFighters.map((fighter) =>
