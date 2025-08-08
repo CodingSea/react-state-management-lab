@@ -91,11 +91,13 @@ const App = () =>
   );
 
   let totalStrength = 0;
+  let totalAgility = 0;
   if(team.length > 0)
   {
     team.forEach((fighter) =>
     {
       totalStrength += fighter.strength;
+      totalAgility += fighter.agility;
     });
   }
 
@@ -139,7 +141,7 @@ const App = () =>
     <>
       <h2>Money: {money}</h2>
       <h2>Team Strength: {totalStrength}</h2>
-      <h2>Team Agility: {money}</h2>
+      <h2>Team Agility: {totalAgility}</h2>
       <h2>Team</h2>
       <ul>
         { displayTeam() }
