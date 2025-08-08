@@ -89,7 +89,15 @@ const App = () =>
       },
     ]
   );
-  const [totalStrength, setTotalStrength] = useState(0);
+
+  let totalStrength = 0;
+  if(team.length > 0)
+  {
+    team.forEach((fighter) =>
+    {
+      totalStrength += fighter.strength;
+    });
+  }
 
 
   function handleAddFighter(fighter)
@@ -103,10 +111,9 @@ const App = () =>
     setZombieFighters(copyZombieFighters);
 
     setMoney(money - fighter.fighter.price);
-    copyTeam.map((f) =>
-    {
-      setTotalStrength(totalStrength + f.strength);
-    })
+    totalStrength = 0;
+
+    console.log(totalStrength);
     displayTeam();
   }
 
